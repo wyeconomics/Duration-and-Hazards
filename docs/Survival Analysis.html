@@ -412,26 +412,26 @@ Wooyong Park
 <h2>Introduction to hazard models</h2>
 <h3 id="hazard-models-are-better-than-the-traditional-regression-approach.">Hazard models are better than the traditional regression approach.</h3>
 <p style="text-align: justify;">
-</p><p>The traditional regression approach specifies a probability distribution for the duration time and fit it using data. The hazard approach, on the other hand, determines the probability of the outcome as a sequence of simpler conditional events.</p>
+</p><p>The traditional regression approach specifies a probability distribution for the duration time and fits it using data. The hazard approach, on the other hand, determines the probability of the outcome as a sequence of simpler conditional events.</p>
 (Conditional sequential probabilities vs Unconditional direct probability distribution)
 <p></p>
 <p><br></p>
 <h3 id="model-intuition">Model Intuition</h3>
 <ul>
 <li>Let <span class="math inline">\(\lambda = \lambda(X_i, t)\)</span> denote the probability of a certain spell being terminated.</li>
-<li>Such probability of adoption/termination would naturally be affected by individual characteristics(<span class="math inline">\(X_i\)</span>) and the duration of the spell(<span class="math inline">\(t\)</span>).</li>
-<li>e.g.&nbsp;Probability of the spell being terminated in exactly 5 weeks: <span class="math inline">\(\left(1-\lambda(X_i,t)\right)^4 \times \lambda(X_i,t)\)</span></li>
+<li>Such probability of adoption/termination would typically be affected by individual characteristics(<span class="math inline">\(X_i\)</span>) and the duration of the spell(<span class="math inline">\(t\)</span>).</li>
+<li>e.g.&nbsp;Probability of the spell being terminated in exactly 5 weeks: <span class="math inline">\(\left(1-\lambda(X_i,t)\right)^4 \cdot \lambda(X_i,t)\)</span></li>
 </ul>
 </section>
 <section id="hazard-functions" class="slide level2">
 <h2>Hazard Functions</h2>
 <h3 id="hazard-function">Hazard Function</h3>
-<p><span class="math display">\[\lambda(u) = \frac{P(u &lt; t \leq u+\delta u|t&gt;u)}{\delta u}\]</span> <strong>Meaning)</strong> Given that the spell wasn’t lifted until <span class="math inline">\(t = u\)</span>, the probability of the spell being lifted in <span class="math inline">\(\delta u\)</span> divided by the interval, <span class="math inline">\(\delta u\)</span>.</p>
+<p><span class="math display">\[\lambda(u) = \frac{P(u &lt; t \leq u+\delta u|t&gt;u)}{\delta u}\]</span> <strong>Meaning)</strong> Given that the spell wasn’t lifted by <span class="math inline">\(t = u\)</span>, the probability of the spell being lifted in <span class="math inline">\(\delta u\)</span> divided by the interval, <span class="math inline">\(\delta u\)</span>.</p>
 </section>
 <section id="hazard-functions-1" class="slide level2">
 <h2>Hazard Functions</h2>
 <h3 id="classical-distributionunconditional-distribution">Classical Distribution(Unconditional Distribution)</h3>
-<p>Note that <span class="math inline">\(P(u\leq t)\)</span> is the CDF of the time until termination of the spell. Denote it by <span class="math inline">\(F(t)\)</span>. Then,</p>
+<p>Note that <span class="math inline">\(P(u\leq t)\)</span> is the CDF of the time from the beginning of the spell to the termination of the spell. Denote it by <span class="math inline">\(F(t)\)</span>. Then,</p>
 <p><span class="math display">\[\begin{align}
 \lambda(u) &amp;= \frac{P(u &lt; t \leq u+\delta u|t&gt;u)}{\delta u}\\
 &amp;=\frac{P(t \leq u+\delta u) - P(t \leq u)}{\delta u \times P(t&gt;u)}\\
@@ -454,13 +454,13 @@ Thus,</p>
 &amp;= \frac{-dS/du}{S(u)} = -\frac{dlnS(u)}{du}
 \end{align}\]</span> Here, we can think of the survivor function as the <em>endurance probability</em> of a spell.</p>
 <p><br></p>
-<p><strong>RMK)</strong> Notice that if we could consistently estimate <span class="math inline">\(S(u)\)</span>, we can also consistently estimate <span class="math inline">\(\lambda(u)\)</span> if differentiability and the continuity of the derivative are guaranteed.</p>
+<p><strong>RMK)</strong> Notice that if we could consistently estimate <span class="math inline">\(S(u)\)</span>, we can also consistently estimate <span class="math inline">\(\lambda(u)\)</span> given that differentiability and continuity of the derivative are guaranteed.</p>
 </section>
 <section id="parametric-hazard" class="slide level2">
 <h2>Parametric Hazard</h2>
 <h3 id="parametric-vs-nonparametric">Parametric vs Nonparametric</h3>
 <ul>
-<li>Parametric Hazard: Specify the functional form of hazard before estimation</li>
+<li>Parametric Hazard: Specifies the functional form of hazard before estimation</li>
 <li>Nonparametric/Semiparametric Hazard: does not specify the hazard function form</li>
 </ul>
 <p><br></p>
@@ -522,7 +522,7 @@ From now on, we denote the hazard function <span class="math inline">\(\lambda(u
 <h3 id="regression-coefficient">Regression Coefficient</h3>
 <p><span class="math display">\[\log h_i(t) = \log h_0(t) + \beta_1X_{i1} + \cdots + \beta_kX_{ik}\]</span></p>
 <p><span class="math inline">\(\beta_j = \frac{\partial \log h_i(t)}{\partial X_{ij}}\)</span>, which means that the regression coefficient is the partial derivative of the log-hazard w.r.t. the covariate.</p>
-<p>(Equivalently, <span class="math inline">\(\beta_j\)</span> denotes the percentage change of the hazard w.r.t. the covariate)</p>
+<p>(Equivalently, <span class="math inline">\(\beta_j\)</span> denotes the percentage change of the hazard w.r.t. the unit change of the covariate)</p>
 </section>
 <section id="cox-ph-model-2" class="slide level2">
 <h2>Cox PH Model</h2>
@@ -581,7 +581,7 @@ that the hazard ratio is independent of the baseline hazard and time. Equivalent
 We estimate the coefficients through <strong>partial likelihood estimation(ple)</strong>. PLE is equivalent to MLE, but we only consider the likelihoods of the data that experienced the event.
 </p>
 <p style="text-align: justify;">
-In the data of observations with their spell ended, we are seeing that particular observation’s spell ended at a given time while other else’s spells could have ended at that time also. The likelihood of that could be expressed by the next question:
+In the data of observations with their spell ended, we are seeing that particular observation’s spell ended at a given time while other else’s spells could have ended at that time also. The likelihood could be described by the next question:
 </p>
 <p style="text-align: justify;">
 “Given that the spell lift happened at time <span class="math inline">\(u\)</span>, what’s the probability that it happened to the individual <span class="math inline">\(A\)</span>?”

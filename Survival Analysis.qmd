@@ -16,7 +16,7 @@ format:
 ## Introduction to hazard models
 ### Hazard models are better than the traditional regression approach.
 <p style="text-align: justify;">
-The traditional regression approach specifies a probability distribution for the duration time and fit it using data.
+The traditional regression approach specifies a probability distribution for the duration time and fits it using data.
 The hazard approach, on the other hand, determines the probability of the outcome as a sequence of simpler conditional events.
 
 (Conditional sequential probabilities vs Unconditional direct probability distribution)
@@ -27,19 +27,19 @@ The hazard approach, on the other hand, determines the probability of the outcom
 
 ### Model Intuition
 - Let $\lambda = \lambda(X_i, t)$ denote the probability of a certain spell being terminated.
-- Such probability of adoption/termination would naturally be affected by individual characteristics($X_i$) and the duration of the spell($t$).
-- e.g. Probability of the spell being terminated in exactly 5 weeks: $\left(1-\lambda(X_i,t)\right)^4 \times \lambda(X_i,t)$
+- Such probability of adoption/termination would typically be affected by individual characteristics($X_i$) and the duration of the spell($t$).
+- e.g. Probability of the spell being terminated in exactly 5 weeks: $\left(1-\lambda(X_i,t)\right)^4 \cdot \lambda(X_i,t)$
 
 ## Hazard Functions
 
 ### Hazard Function
 $$\lambda(u) = \frac{P(u < t \leq u+\delta u|t>u)}{\delta u}$$
-**Meaning)** Given that the spell wasn't lifted until $t = u$, the probability of the spell being lifted in $\delta u$ divided by the interval, $\delta u$.
+**Meaning)** Given that the spell wasn't lifted by $t = u$, the probability of the spell being lifted in $\delta u$ divided by the interval, $\delta u$.
 
 ## Hazard Functions
 
 ### Classical Distribution(Unconditional Distribution)
-Note that $P(u\leq t)$ is the CDF of the time until termination of the spell. Denote it by $F(t)$. Then,
+Note that $P(u\leq t)$ is the CDF of the time from the beginning of the spell to the termination of the spell. Denote it by $F(t)$. Then,
 
 $$\begin{align}
 \lambda(u) &= \frac{P(u < t \leq u+\delta u|t>u)}{\delta u}\\
@@ -70,11 +70,11 @@ Here, we can think of the survivor function as the *endurance probability* of a 
 
 <br>
 
-**RMK)** Notice that if we could consistently estimate $S(u)$, we can also consistently estimate $\lambda(u)$ if differentiability and the continuity of the derivative are guaranteed. 
+**RMK)** Notice that if we could consistently estimate $S(u)$, we can also consistently estimate $\lambda(u)$ given that differentiability and continuity of the derivative are guaranteed. 
 
 ## Parametric Hazard
 ### Parametric vs Nonparametric
-- Parametric Hazard: Specify the functional form of hazard before estimation
+- Parametric Hazard: Specifies the functional form of hazard before estimation
 - Nonparametric/Semiparametric Hazard: does not specify the hazard function form
 
 <br>
@@ -140,7 +140,7 @@ $$\log h_i(t) = \log h_0(t) + \beta_1X_{i1} + \cdots + \beta_kX_{ik}$$
 
 $\beta_j = \frac{\partial \log h_i(t)}{\partial X_{ij}}$, which means that the regression coefficient is the partial derivative of the log-hazard w.r.t. the covariate.
 
-(Equivalently, $\beta_j$ denotes the percentage change of the hazard w.r.t. the covariate)
+(Equivalently, $\beta_j$ denotes the percentage change of the hazard w.r.t. the unit change of the covariate)
 
 
 ## Cox PH Model
@@ -202,7 +202,7 @@ We estimate the coefficients through **partial likelihood estimation(ple)**. PLE
 </p>
 
 <p style="text-align: justify;">
-In the data of observations with their spell ended, we are seeing that particular observation's spell ended at a given time while other else's spells could have ended at that time also. The likelihood of that could be expressed by the next question:
+In the data of observations with their spell ended, we are seeing that particular observation's spell ended at a given time while other else's spells could have ended at that time also. The likelihood could be described by the next question:
 </p>
 
 <p style="text-align: justify;">
